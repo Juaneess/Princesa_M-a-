@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para el amor de mi vida</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e1b4b, #3b0764);
+            color: #f1f5f9;
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Pantalla de Bienvenida */
+        #welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #1e1b4b 0%, #090514 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            text-align: center;
+            padding: 20px;
+            transition: opacity 1s ease, visibility 1s;
+        }
+
+        #welcome-screen h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 3.5rem;
+            color: #a78bfa;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px rgba(167, 139, 250, 0.5);
+        }
+
+        #welcome-screen p {
+            font-size: 1.2rem;
+            color: #93c5fd;
+            margin-bottom: 30px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .btn-enter {
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+            border: none;
+            font-size: 2.5rem;
+            padding: 15px 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.6);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-enter:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.8);
+        }
+
+        /* Contenedor Principal de la Carta */
+        #main-content {
+            opacity: 0;
+            visibility: hidden;
+            width: 100%;
+            max-width: 650px;
+            padding: 40px 20px;
+            margin: auto;
+            transition: opacity 1.5s ease-in-out;
+            display: flex;
+            justify-content: center;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(147, 197, 253, 0.05);
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #e2e8f0;
+            margin-bottom: 25px;
+            font-weight: 300;
+            text-align: justify;
+        }
+
+        .card p:last-of-type {
+            font-family: 'Caveat', cursive;
+            font-size: 2.2rem;
+            color: #c084fc;
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 0;
+            line-height: 1.3;
+            text-shadow: 0 0 10px rgba(192, 132, 252, 0.3);
+        }
+
+        /* Corazones con contorno titilando */
+        .heart-bg {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            color: transparent;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%238b5cf6" stroke-width="1.5"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.3;
+            z-index: 1;
+            animation: pulse-glow 3s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { 
+                transform: scale(1); 
+                filter: drop-shadow(0 0 2px rgba(139, 92, 246, 0.4)) opacity(0.2);
+            }
+            50% { 
+                transform: scale(1.1); 
+                filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.8)) opacity(0.6);
+                background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%233b82f6" stroke-width="1.5"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
+            }
+        }
+
+        /* Palabras bonitas flotantes */
+        .floating-word {
+            position: fixed;
+            font-family: 'Caveat', cursive;
+            font-size: 1.4rem;
+            color: #93c5fd;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 3;
+            text-shadow: 0 0 8px rgba(147, 197, 253, 0.5);
+            animation: fadeUpWord 4s ease-in-out forwards;
+        }
+
+        @keyframes fadeUpWord {
+            0% { opacity: 0; transform: translateY(20px); }
+            20% { opacity: 0.7; }
+            80% { opacity: 0.7; }
+            100% { opacity: 0; transform: translateY(-40px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="welcome-screen">
+        <h1>Te amo amor de mi vidaa</h1>
+        <p>Eres la mejor<br>esto es para ti con muchísimo amor</p>
+        <button class="btn-enter" onclick="enterLetter()">Abre aquí 🥰</button>
+    </div>
+
+    <div id="main-content">
+        <div class="card">
+            <p>No sé cómo expresarme con todo lo que causas en mí, porque sinceramente siento que las palabras se quedan cortas cuando se trata de ti. Desde que llegaste a mi vida todo cambió de una manera tan bonita que todavía me cuesta creerlo. Contigo encontré tranquilidad, felicidad y una conexión que jamás había sentido antes. Me encanta absolutamente todo de ti: tu manera de hablar, tus besitos y la forma en la que me haces sentir querido incluso a la distancia, porque aunque todavía no haya podido ver tu sonrisa en persona, sé que debe ser una de las cosas más bonitas que existen 💙</p>
+            
+            <p>Y aunque uno podría pensar que todo pasó demasiado rápido, la verdad es que contigo todo se sintió correcto desde el principio, como si mi corazón ya te conociera desde antes. Gracias por existir, por llegar a mi vida y por convertirte poco a poco en mi lugar favorito. Quiero seguir creando recuerdos contigo, seguir soñando juntos y demostrarte cada día lo muchísimo que significas para mí.</p>
+            
+            <p>Porque sinceramente no imagino una vida donde tú no estés. Eres esa persona que llegó sin avisar y terminó convirtiéndose en una parte demasiado importante de mí. A veces me pongo a pensar en todo lo bonito que hemos construido incluso con la distancia, y me doy cuenta de que contigo todo vale la pena. Cada mensaje tuyo, cada llamada y cada palabra bonita terminan alegrándome muchísimo más de lo que imaginas.</p>
+            
+            <p>Me encanta la manera en la que haces que todo se sienta más bonito, más tranquilo y más especial. Contigo aprendí que el cariño verdadero se siente incluso a pocos kilómetros de distancia. Tú te convertiste poco a poco en mi lugar seguro, en esa persona que quiero tener cerca siempre. Hay algo en ti que me da paz, que me hace sentir querido y que me hace pensar que contigo podría quedarme muchísimo tiempo sin cansarme jamás.</p>
+            
+            <p>Gracias por cada palabra bonita, por cada momento, por cada risa y por cada detalle que has tenido conmigo. Puede que a veces no encuentre las palabras exactas para decir todo lo que siento, pero quiero que siempre recuerdes que eres alguien demasiado importante para mí. Pase lo que pase, siempre voy a cuidar esto tan bonito que tenemos, porque tú eres y siempre vas a ser alguien demasiado especial para mi corazón 💙</p>
+            
+            <p>No me veo con alguien mas en mi vida que no seas tuu 🥹🥹<br>Siempre vas hacer tuuu AMORCITOO DE MI VIDAA 💜</p>
+        </div>
+    </div>
+
+    <script>
+        function enterLetter() {
+            const welcome = document.getElementById('welcome-screen');
+            const content = document.getElementById('main-content');
+            
+            welcome.style.opacity = '0';
+            welcome.style.visibility = 'hidden';
+            
+            content.style.opacity = '1';
+            content.style.visibility = 'visible';
+
+            createHeartsBackground();
+            setInterval(spawnFloatingWord, 2000);
+        }
+
+        function createHeartsBackground() {
+            const numberOfHearts = 15;
+            for (let i = 0; i < numberOfHearts; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart-bg');
+                
+                heart.style.left = Math.random() * 90 + 5 + '%';
+                heart.style.top = Math.random() * 85 + 5 + '%';
+                
+                const size = Math.random() * 30 + 20;
+                heart.style.width = size + 'px';
+                heart.style.height = size + 'px';
+                heart.style.animationDelay = Math.random() * 3 + 's';
+                
+                document.body.appendChild(heart);
+            }
+        }
+
+        const words = ["Te amo", "Mi lugar seguro", "Siempre tú", "Mi princesa", "Eres mi paz", "Contigo siempre", "Mi felicidad", "Te extraño", "Mi corazoncito", "Eres mi todo"];
+
+        function spawnFloatingWord() {
+            const card = document.querySelector('.card');
+            if (!card || document.getElementById('main-content').style.opacity === '0') return;
+
+            const wordText = words[Math.floor(Math.random() * words.length)];
+            const wordElement = document.createElement('div');
+            wordElement.classList.add('floating-word');
+            wordElement.innerText = wordText;
+
+            const textColors = ['#a78bfa', '#93c5fd', '#c084fc', '#60a5fa'];
+            wordElement.style.color = textColors[Math.floor(Math.random() * textColors.length)];
+
+            const side = Math.random() > 0.5 ? 'left' : 'right';
+            if (side === 'left') {
+                wordElement.style.left = Math.random() * 12 + 4 + '%';
+            } else {
+                wordElement.style.right = Math.random() * 12 + 4 + '%';
+            }
+            
+            wordElement.style.top = Math.random() * 70 + 15 + '%';
+
+            document.body.appendChild(wordElement);
+
+            setTimeout(() => {
+                wordElement.remove();
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
